@@ -19,9 +19,7 @@ import {REACT_APP_URL} from '@env';
 import {removeAccentsWords} from '../services/utils';
 import config from '../../config';
 import LeaderBoard from '../components/Sextus/LeaderBoard';
-import TextBase from '../components/Text';
 import sparkles from '../assets/MaterialButton.png';
-import Button from '../components/Button';
 import ClueContainer from '../components/Sextus/ClueContainer';
 
 const Sextus = ({navigation}) => {
@@ -287,15 +285,11 @@ const Sextus = ({navigation}) => {
             setGlobalYellowLetters={item => setGlobalYellowLetters(item)}
           />
           {displayClueButton && currentRow === 0 && !displayClue && (
-            <View style={styles.clueContainer}>
+            <TouchableOpacity
+              style={styles.clueContainer}
+              onPress={() => setDisplayClue(true)}>
               <Image source={sparkles} style={styles.clueImage} />
-              <TextBase>Besoin d'un indice ?</TextBase>
-              <Button
-                size="small"
-                icon
-                text="Ok"
-                onPress={() => setDisplayClue(true)}></Button>
-            </View>
+            </TouchableOpacity>
           )}
           {displayClue && (
             <ClueContainer clue={clue} setDisplayClue={setDisplayClue} />
@@ -388,12 +382,17 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   clueContainer: {
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    padding: 10,
+    top: config.deviceHeight / 11 - 50,
+    right: 20,
+    shadowColor: 'rgba(0,0,0, .2)', // IOS
+    shadowOffset: {height: 1, width: 1}, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    elevation: 2, // Android
   },
 });
 
